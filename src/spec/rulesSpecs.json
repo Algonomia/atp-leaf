@@ -1,0 +1,76 @@
+[
+  {
+    "atp_benchmark_first_quartil": 0,
+    "atp_benchmark_third_quartil": 0,
+    "atp_benchmark_target_below": 1,
+    "atp_benchmark_target_in": 0.5,
+    "atp_tp_method": "ROS",
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_1": "alpha1",
+    "atp_declaring_entity_segmentation_2": "beta2",
+    "atp_counterpart_entity_segmentation_1": "alpha1"
+  },
+  {
+    "atp_benchmark_first_quartil": 0,
+    "atp_benchmark_third_quartil": 0,
+    "atp_benchmark_target_below": 0.25,
+    "atp_benchmark_target_in": 0.75,
+    "atp_tp_method": "ROS",
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_1": "alpha3",
+    "atp_declaring_entity_segmentation_2": "beta2",
+    "atp_counterpart_entity_segmentation_1": "alpha1"
+  },
+  {
+    "atp_benchmark_first_quartil": 0,
+    "atp_benchmark_third_quartil": 0,
+    "atp_benchmark_target_below": 0.02,
+    "atp_benchmark_target_in": 0.05,
+    "atp_tp_method": "ROS",
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_2": "beta1",
+    "atp_counterpart_entity_segmentation_1": "alpha1"
+  },
+  {
+    "atp_benchmark_first_quartil": 0,
+    "atp_benchmark_third_quartil": 0,
+    "atp_benchmark_target_below": 0.01,
+    "atp_benchmark_target_in": 0.005,
+    "atp_tp_method": "ROS",
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_2": "beta2",
+    "atp_counterpart_entity_segmentation_1": "alpha1"
+  },
+  {
+    "atp_benchmark_first_quartil": 0,
+    "atp_benchmark_third_quartil": 0,
+    "atp_benchmark_target_below": 0.9,
+    "atp_benchmark_target_above": 0.105,
+    "atp_tp_method": "ROS",
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_3": "gamma1",
+    "atp_counterpart_entity_segmentation_1": "alpha1"
+  },
+  {
+    "atp_benchmark_first_quartil": 0,
+    "atp_benchmark_third_quartil": 0,
+    "atp_benchmark_target_below": 0.6,
+    "atp_benchmark_target_above": 0.205,
+    "atp_tp_method": "ROS",
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_3": "gamma2",
+    "atp_counterpart_entity_segmentation_1": "alpha1"
+  }
+]

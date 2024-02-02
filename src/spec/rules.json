@@ -1,0 +1,17 @@
+[
+  {
+    "atp_benchmark_first_quartil": 0.2,
+    "atp_benchmark_third_quartil": 0.4,
+    "atp_benchmark_target_below": 0.3,
+    "atp_benchmark_target_in": 0.3,
+    "atp_benchmark_target_above": 0.3,
+    "atp_tp_method": "ROS",
+    "atp_date_inf": 1661265627195,
+    "atp_date_sup": 1661295627195,
+    "atp_impact_on_sales": true,
+    "atp_in_scope": true,
+    "atp_rule_application_modulation": [2, 3],
+    "atp_declaring_entity_segmentation_1": "FR",
+    "atp_counterpart_entity_segmentation_1": "DE"
+  }
+]

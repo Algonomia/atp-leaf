@@ -1,0 +1,56 @@
+[
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_declaring_entity_segmentation_1": "alpha1",
+    "atp_declaring_entity_segmentation_2": "beta1",
+    "atp_declaring_entity_segmentation_3": "gamma1"
+  },
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_declaring_entity_segmentation_1": "alpha1",
+    "atp_declaring_entity_segmentation_2": "beta2",
+    "atp_declaring_entity_segmentation_3": "gamma2"
+  },
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_declaring_entity_segmentation_1": "alpha2",
+    "atp_declaring_entity_segmentation_2": "beta1",
+    "atp_declaring_entity_segmentation_3": "gamma2"
+  },
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_declaring_entity_segmentation_1": "alpha2",
+    "atp_declaring_entity_segmentation_2": "beta2",
+    "atp_declaring_entity_segmentation_3": "gamma2"
+  },
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_declaring_entity_segmentation_1": "alpha3",
+    "atp_declaring_entity_segmentation_2": "beta1",
+    "atp_declaring_entity_segmentation_3": "gamma2"
+  },
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_declaring_entity_segmentation_1": "alpha3",
+    "atp_declaring_entity_segmentation_2": "beta2",
+    "atp_declaring_entity_segmentation_3": "gamma2"
+  }
+]

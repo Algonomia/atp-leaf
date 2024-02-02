@@ -1,0 +1,18 @@
+[
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_firm_creation_date": 1661268627195,
+    "atp_declaring_entity_segmentation_1": "FR"
+  },
+  {
+    "atp_sales": 100,
+    "atp_income": 50,
+    "atp_operating_expenses": 20,
+    "atp_tax": 0,
+    "atp_firm_creation_date": 1661268627195,
+    "atp_declaring_entity_segmentation_1": "DE"
+  }
+]
