@@ -33,15 +33,16 @@ export function bestRuleAffectation(data: DataInterface[], rules: RulesInterface
     return bestRuleResolution(dataWithCompatibleRules);
 }
 
-export function getCounterpart<T>(data: T[], rule: RulesInterface): T {
+export function getCounterpart<T>(data: T[], rule: RulesInterface): T|undefined {
     const segmentationKeys = [...Object.keys(data), ...Object.keys(rule)].filter(key => key.startsWith('atp_counterpart_entity_segmentation'));
     const matchingCounterparts = data.filter(data => segmentationKeys.every((segKey: string) =>
         (<DataInterface><unknown>data)[segKey.replace('atp_counterpart_entity_segmentation', 'atp_declaring_entity_segmentation')] === rule[segKey]));
     if (matchingCounterparts.length === 0) {
-        throw new Error('No counterpart matching for rule:' + rule);
+        console.error('No counterpart matching for rule:' + rule);
+        // throw new Error('No counterpart matching for rule:' + rule);
     } else if (matchingCounterparts.length > 1) {
-        console.log(rule);
-        throw new Error('Too many counterparts matching for rule:' + rule);
+        console.error('Too many counterparts matching for rule:' + rule);
+        // throw new Error('Too many counterparts matching for rule:' + rule);
     }
     return matchingCounterparts[0];
 }

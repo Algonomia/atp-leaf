@@ -10,7 +10,7 @@ import * as math from "mathjs";
 import {BigNumber} from "mathjs";
 import {CurrencyChange, MoneyType} from "@algonomia/framework";
 
-export function updateValues(data: DataOutputInterface, counterpart: DataOutputInterface, tpa: MoneyType|undefined,
+export function updateValues(data: DataOutputInterface, counterpart: DataOutputInterface|undefined, tpa: MoneyType|undefined,
                              kpi: BigNumber|undefined, actual_rule_application_modulation: RuleApplicationModulation|undefined, rule: RulesInterface) {
     if (kpi) {
         _updateKPI(data, rule, kpi);
@@ -25,7 +25,9 @@ export function updateValues(data: DataOutputInterface, counterpart: DataOutputI
             _updateRoyalty(data, counterpart, rule, tpa);
         }
         _updateWithAccountingImpactDeclaring(data, rule, tpa);
-        _updateWithAccountingImpactCounterpart(counterpart, rule, tpa);
+        if (counterpart) {
+            _updateWithAccountingImpactCounterpart(counterpart, rule, tpa);
+        }
     }
 }
 
@@ -67,58 +69,64 @@ function _updateKPI(data: DataOutputInterface, rule: RulesInterface, kpi: BigNum
     }
 }
 
-function _updateTPA(data: DataOutputInterface, counterpart: DataOutputInterface, tpa: MoneyType) {
+function _updateTPA(data: DataOutputInterface, counterpart: DataOutputInterface|undefined, tpa: MoneyType) {
     const homogenizeMoneyTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(data.local_currency,{dataTPA: data.atp_tpa_adj_amount, tpa: tpa});
     data.atp_tpa_adj_amount = new MoneyType(
         math.add(homogenizeMoneyTPA.convertedMoney.dataTPA.amount, homogenizeMoneyTPA.convertedMoney.tpa.amount),
         homogenizeMoneyTPA.sharedCurrency
     );
-    const homogenizeMoneyTPACounter = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{counterTPA: counterpart.atp_tpa_adj_amount, tpa: tpa});
-    counterpart.atp_tpa_adj_amount = new MoneyType(
-        math.subtract(homogenizeMoneyTPACounter.convertedMoney.counterTPA.amount, homogenizeMoneyTPACounter.convertedMoney.tpa.amount),
-        homogenizeMoneyTPACounter.sharedCurrency
-    );
+    if (counterpart) {
+        const homogenizeMoneyTPACounter = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{counterTPA: counterpart.atp_tpa_adj_amount, tpa: tpa});
+        counterpart.atp_tpa_adj_amount = new MoneyType(
+            math.subtract(homogenizeMoneyTPACounter.convertedMoney.counterTPA.amount, homogenizeMoneyTPACounter.convertedMoney.tpa.amount),
+            homogenizeMoneyTPACounter.sharedCurrency
+        );
+    }
 }
 
-function _updateProfitIndicator(data: DataOutputInterface, counterpart: DataOutputInterface, tpa: MoneyType) {
+function _updateProfitIndicator(data: DataOutputInterface, counterpart: DataOutputInterface|undefined, tpa: MoneyType) {
     const homogenizeMoneyIncomeTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(data.local_currency,{profit_indicator: data.atp_profit_indicator, tpa: tpa});
     data.atp_profit_indicator = new MoneyType(
         math.add(homogenizeMoneyIncomeTPA.convertedMoney.profit_indicator.amount, homogenizeMoneyIncomeTPA.convertedMoney.tpa.amount),
         homogenizeMoneyIncomeTPA.sharedCurrency
     );
-    const homogenizeMoneyCounterIncomeTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{profit_indicator: counterpart.atp_profit_indicator, tpa: tpa}, true);
-    counterpart.atp_profit_indicator = new MoneyType(
-        math.subtract(homogenizeMoneyCounterIncomeTPA.convertedMoney.profit_indicator.amount, homogenizeMoneyCounterIncomeTPA.convertedMoney.tpa.amount),
-        homogenizeMoneyCounterIncomeTPA.sharedCurrency
-    );
+    if (counterpart) {
+        const homogenizeMoneyCounterIncomeTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{profit_indicator: counterpart.atp_profit_indicator, tpa: tpa}, true);
+        counterpart.atp_profit_indicator = new MoneyType(
+            math.subtract(homogenizeMoneyCounterIncomeTPA.convertedMoney.profit_indicator.amount, homogenizeMoneyCounterIncomeTPA.convertedMoney.tpa.amount),
+            homogenizeMoneyCounterIncomeTPA.sharedCurrency
+        );
+    }
 }
 
-function _updateRoyalty(data: DataOutputInterface, counterpart: DataOutputInterface, rule: RulesInterface, tpa: MoneyType) {
+function _updateRoyalty(data: DataOutputInterface, counterpart: DataOutputInterface|undefined, rule: RulesInterface, tpa: MoneyType) {
     const homogenizeMoneyRoyaltyPaidTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(data.local_currency,{royalty_paid: data.atp_royalty_paid, tpa: tpa});
     data.atp_royalty_paid = new MoneyType(
         math.add(homogenizeMoneyRoyaltyPaidTPA.convertedMoney.royalty_paid.amount, homogenizeMoneyRoyaltyPaidTPA.convertedMoney.tpa.amount),
         homogenizeMoneyRoyaltyPaidTPA.sharedCurrency
     );
-    const homogenizeMoneyCounterRoyaltyReceivedTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{royalty_received: counterpart.atp_royalty_received, tpa: tpa}, true);
-    counterpart.atp_royalty_received = new MoneyType(
-        math.subtract(homogenizeMoneyCounterRoyaltyReceivedTPA.convertedMoney.royalty_received.amount, homogenizeMoneyCounterRoyaltyReceivedTPA.convertedMoney.tpa.amount),
-        homogenizeMoneyCounterRoyaltyReceivedTPA.sharedCurrency
-    );
-    const homogenizeMoneyCounterRoyaltyReceived = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{
-        atp_royalty_received_prod_specific_rate: counterpart.atp_royalty_received_prod_specific_rate,
-        tpa: tpa
-    });
-    counterpart.atp_royalty_received_prod_specific_rate = new MoneyType(
-        math.add(
-            homogenizeMoneyCounterRoyaltyReceived.convertedMoney.atp_royalty_received_prod_specific_rate.amount,
-            math.prod(
-                math.bignumber(-1),
-                homogenizeMoneyCounterRoyaltyReceived.convertedMoney.tpa.amount,
-                math.bignumber(rule.atp_royalties_specific_rate)
-            )
-        ),
-        homogenizeMoneyCounterRoyaltyReceived.sharedCurrency
-    );
+    if (counterpart) {
+        const homogenizeMoneyCounterRoyaltyReceivedTPA = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{royalty_received: counterpart.atp_royalty_received, tpa: tpa}, true);
+        counterpart.atp_royalty_received = new MoneyType(
+            math.subtract(homogenizeMoneyCounterRoyaltyReceivedTPA.convertedMoney.royalty_received.amount, homogenizeMoneyCounterRoyaltyReceivedTPA.convertedMoney.tpa.amount),
+            homogenizeMoneyCounterRoyaltyReceivedTPA.sharedCurrency
+        );
+        const homogenizeMoneyCounterRoyaltyReceived = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(counterpart.local_currency,{
+            atp_royalty_received_prod_specific_rate: counterpart.atp_royalty_received_prod_specific_rate,
+            tpa: tpa
+        });
+        counterpart.atp_royalty_received_prod_specific_rate = new MoneyType(
+            math.add(
+                homogenizeMoneyCounterRoyaltyReceived.convertedMoney.atp_royalty_received_prod_specific_rate.amount,
+                math.prod(
+                    math.bignumber(-1),
+                    homogenizeMoneyCounterRoyaltyReceived.convertedMoney.tpa.amount,
+                    math.bignumber(rule.atp_royalties_specific_rate)
+                )
+            ),
+            homogenizeMoneyCounterRoyaltyReceived.sharedCurrency
+        );
+    }
 }
 
 function _updateWithAccountingImpactDeclaring(data: DataOutputInterface, rule: RulesInterface, tpa: MoneyType) {

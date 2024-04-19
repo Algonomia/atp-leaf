@@ -38,7 +38,7 @@ export class AtpComputation {
                 }, data);
                 return [dataOutput, rule];
             });
-        const dataWithRuleAndCounterpart: [DataOutputWHTInterface, RulesInterface, DataOutputWHTInterface][] =
+        const dataWithRuleAndCounterpart: [DataOutputWHTInterface, RulesInterface, DataOutputWHTInterface|undefined][] =
             dataOutputWithRule.filter(([_, rule]) => rule !== undefined)
                 .map(([data, rule]) => {
                     return [
@@ -66,10 +66,10 @@ export class AtpComputation {
             sumTpa = this._iterateComputation(dataWithRuleAndCounterpart);
         }
         this._applyTax(dataWithRuleAndCounterpart.map(dWRC => ({dataOutput: dWRC[0], rule: dWRC[1]})));
-        return dataWithRuleAndCounterpart.map(dataWRuleAndCounterpart => [dataWRuleAndCounterpart[0], dataWRuleAndCounterpart[2]]).flat();
+        return dataWithRuleAndCounterpart.map(d => d[2] ? [d[0], d[2]] : d[0]).flat();
     }
 
-    private _iterateComputation(dataWithRule: [DataOutputWHTInterface, RulesInterface, DataOutputWHTInterface][]): number {
+    private _iterateComputation(dataWithRule: [DataOutputWHTInterface, RulesInterface, DataOutputWHTInterface|undefined][]): number {
         return dataWithRule.map(([data, rule, counterpart]) => {
             const {kpi, target, actual_rule_application_modulation} = this._getKPIAndTarget(data, rule);
             if (data !== counterpart && kpi !== undefined) {

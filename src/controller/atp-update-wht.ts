@@ -3,14 +3,16 @@ import {RulesInterface, TPMethod} from "~/interfaces/rules.interface";
 import * as math from "mathjs";
 import {MoneyType} from "@algonomia/framework";
 
-export function updateWHT(data: DataOutputWHTInterface, counterpart: DataOutputWHTInterface, tpa: MoneyType|undefined, rule: RulesInterface) {
+export function updateWHT(data: DataOutputWHTInterface, counterpart: DataOutputWHTInterface|undefined, tpa: MoneyType|undefined, rule: RulesInterface) {
     if (tpa !== undefined && !tpa.amount.equals(0) && rule.atp_tp_method === TPMethod.Royalty) {
-        _updateDeltaWHTRoyaltyRcv(counterpart, rule, tpa);
         _updateDeltaWHTRoyaltyPaid(data, rule, tpa);
-        _updatePossibleWHTRoyaltyTaxCredits(counterpart, rule, tpa);
-        _updateDeltaPBTWHTRoyaltyRcv(counterpart, rule, tpa);
         _updateDeltaPBTWHTRoyaltyPaid(data, rule, tpa);
-        _updateDeltaTaxWHTRoyaltyRcv(counterpart, rule, tpa);
+        if (counterpart) {
+            _updateDeltaWHTRoyaltyRcv(counterpart, rule, tpa);
+            _updatePossibleWHTRoyaltyTaxCredits(counterpart, rule, tpa);
+            _updateDeltaPBTWHTRoyaltyRcv(counterpart, rule, tpa);
+            _updateDeltaTaxWHTRoyaltyRcv(counterpart, rule, tpa);
+        }
     }
 }
 
