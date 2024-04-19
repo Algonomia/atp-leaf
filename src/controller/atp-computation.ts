@@ -138,7 +138,7 @@ export class AtpComputation {
                         )
                     )
                 );
-                dataOutput.atp_pbt = dataOutput.atp_pbt?.add([dataOutput.atp_tpa_adj_amount, dataOutput.delta_pbt_wht_royalty_paid, dataOutput.delta_pbt_wht_royalty_received]) ?? dataOutput.atp_tpa_adj_amount.add([dataOutput.delta_pbt_wht_royalty_paid, dataOutput.delta_pbt_wht_royalty_received]);
+                dataOutput.atp_pbt = dataOutput.atp_pbt?.add([dataOutput.atp_tpa_adj_amount, dataOutput.delta_pbt_wht_royalty_paid, dataOutput.delta_pbt_wht_royalty_received]) ?? dataOutput.atp_tpa_adj_amount?.add([dataOutput.delta_pbt_wht_royalty_paid, dataOutput.delta_pbt_wht_royalty_received]);
                 dataOutput.atp_tax_expenses = dataOutput.atp_tax_expenses?.add([dataTaxPayer.atp_delta_tax?.weight(keyDeltaPBT)]) ?? dataTaxPayer.atp_delta_tax?.weight(keyDeltaPBT);
                 dataOutput.atp_tax_losses_carryforward_n = dataOutput.atp_tax_losses_carryforward_n?.subtract([dataTaxPayer.atp_new_tlcf_n?.weight(keyDeltaPBT)]) ?? dataTaxPayer.atp_new_tlcf_n?.weight(keyDeltaPBT).invert();
                 dataOutput.atp_taxes_losses_generated_consumed = dataTaxPayer.atp_taxes_losses_generated_consumed?.weight(keyDeltaPBT);
