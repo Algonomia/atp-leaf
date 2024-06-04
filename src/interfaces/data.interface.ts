@@ -2,7 +2,7 @@ import {KPIName, RuleApplicationModulation} from "~/interfaces/rules.interface";
 import {MoneyType} from "@algonomia/framework";
 
 export interface DataInterface {
-    id?: number;
+    id?: any;
     atp_taxpayer?: string;
     atp_assets?: MoneyType;
     atp_capital_employed?: MoneyType;

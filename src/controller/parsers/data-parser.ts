@@ -8,7 +8,7 @@ import {
 export function dataParser(jsonData: {}[]): DataInterface[] {
     return jsonData.map(entry => {
         const parsed: DataInterface = {
-            id: getValueFromKeyIfTypeCompatible<number>('id', entry, 'number'),
+            id: getValueFromKeyIfTypeCompatible<any>('id', entry, 'any'),
             atp_taxpayer: getValueFromKeyIfTypeCompatible<string>('atp_taxpayer', entry, 'string'),
             atp_assets: MoneyType.moneyTypeParser('atp_assets', entry),
             atp_capital_employed: MoneyType.moneyTypeParser('atp_capital_employed', entry),
