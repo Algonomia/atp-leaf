@@ -106,7 +106,7 @@ function _computeTPAROOE(data: DataInterface, target: number): MoneyType {
 
 function _computeTPAROC(data: DataInterface, rule: RulesInterface, target: number): MoneyType {
     const homogenizeMoney = CurrencyChange.getDefaultCurrencyChange().homogenizeMoney(data.local_currency, {profit_indicator: data.atp_profit_indicator, before_sales: data.atp_before_sales});
-    if (rule.atp_accounting_impact_for_declaring === AccountingImpact.Sales) {
+    if (rule.atp_accounting_impact_for_declaring !== AccountingImpact.Sales) {
         return new MoneyType(
             <BigNumber><unknown>math.subtract(
                 math.multiply(math.bignumber(target), homogenizeMoney.convertedMoney.before_sales.amount),
